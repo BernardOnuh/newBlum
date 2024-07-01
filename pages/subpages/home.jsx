@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
-export default function Welcome() {
+export default function TelegramProfile() {
   const [username, setUsername] = useState('');
   const [profilePic, setProfilePic] = useState('');
 
@@ -32,7 +32,6 @@ export default function Welcome() {
       <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
       {profilePic && <img src={profilePic} alt="Profile Picture" />}
       <p>{username}</p>
-      <p>Image: {profilePic}</p>
     </div>
   );
 }
