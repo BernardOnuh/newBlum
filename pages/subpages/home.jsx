@@ -32,7 +32,7 @@ export default function Welcome() {
       <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
       {profilePic && <img src={profilePic} alt="Profile Picture" />}
       <p>{username}</p>
-      <p>{profilePic}</p>
+      <p>Image: {profilePic}</p>
     </div>
   );
 }
