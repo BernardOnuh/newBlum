@@ -40,7 +40,7 @@ const Welcome = () => {
     };
 
     return (
-        <div className='h-screen flex flex-col overflow-hidden'>
+        <div className='h-[80%] flex flex-col overflow-hidden'>
             <div className='flex-grow overflow-auto'>
                 <div>
                     <div className='flex justify-center items-start'>
