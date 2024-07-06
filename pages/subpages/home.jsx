@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { GoHome } from 'react-icons/go';
-import { HiOutlineUserGroup } from 'react-icons/hi';
+import { AiFillHome, AiOutlineUnorderedList, AiOutlineUser } from 'react-icons/ai';
+import { GoHome } from "react-icons/go";
+import { HiOutlineUserGroup } from "react-icons/hi";
 
 const Welcome = () => {
     const [score, setScore] = useState(33333);
@@ -20,10 +20,10 @@ const Welcome = () => {
             try {
                 // Simulating a fetch call
                 const userData = await getUserDataFromTelegramMiniApp();
-                setUsername(userData.username || 'Anon');
+                setUsername(userData.username || "Anon");
             } catch (error) {
-                console.error('Failed to fetch user data:', error);
-                setUsername('Anon');
+                console.error("Failed to fetch user data:", error);
+                setUsername("Anon");
             }
         };
 
@@ -34,28 +34,28 @@ const Welcome = () => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 // Simulate user data
-                resolve({ username: 'Anon' }); // Change this to simulate different scenarios
+                resolve({ username: "Anon" }); // Change this to simulate different scenarios
             }, 1000);
         });
     };
 
     return (
-        <div className='h-[80%] flex flex-col overflow-hidden'>
-            <div className='flex-grow overflow-auto'>
+        <div className='flex flex-col'>
+            <div className='flex-grow'>
                 <div>
-                    <div className='flex justify-center items-start'>
-                        <Image src='/diamond.png' alt='Logo' width={100} height={100} className='mt-2 rounded-full' />
+                    <div className="flex justify-center items-start">
+                        <Image src="/diamond.png" alt="Logo" width={100} height={100} className="mt-2 rounded-full" />
                     </div>
                     <div className='font-semibold text-lg mt-2 text-black text-center'>{username}</div>
                 </div>
-                <div className='flex justify-center items-start mt-4'>
-                    <Image src='/diamond.png' alt='Logo' width={30} height={30} className='rounded-full' />
+                <div className="flex justify-center items-start mt-4">
+                    <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounded-full" />
                     <div className='text-center my-auto text-black font-bold text-xl text-[#ff6ec7]'>{score}</div>
                 </div>
 
-                <div className='bg w-[90vw] rounded-md border-[#1F7DF1] border-2 py-3 my-4 mx-auto'>
+                <div className='bg w-[90vw] rounded-md border-[#1F7DF1] border-2 py-3 my-4'>
                     <div className='flex justify-center'>
-                        <Image src='/diamond.png' alt='Logo' width={30} height={30} className='rounded' />
+                        <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounde" />
                     </div>
                     <div
                         className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-[#ff6ec7] cursor-pointer'
@@ -81,7 +81,7 @@ const Welcome = () => {
                         <span>Tasks</span>
                     </div>
                     <div className='cursor-pointer flex flex-col items-center'>
-                        <HiOutlineUserGroup size={24} />
+                        <AiOutlineUser size={24} />
                         <span>Friends</span>
                     </div>
                 </div>
