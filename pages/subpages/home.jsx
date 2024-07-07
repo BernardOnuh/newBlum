@@ -1,43 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { AiFillHome, AiOutlineUnorderedList, AiOutlineUser } from 'react-icons/ai';
+import { AiFillHome, AiOutlineUnorderedList } from 'react-icons/ai';
 import { GoHome } from "react-icons/go";
 import { HiOutlineUserGroup } from "react-icons/hi";
 
 const Welcome = () => {
     const [score, setScore] = useState(33333);
+    const [username, setUsername] = useState("Anon");
     const router = useRouter();
 
     const handlePlayClick = () => {
         router.push('/subpages/play'); // Navigate to the play page
     };
-    const [username, setUsername] = useState(null);
 
-   useEffect(() => {
+    useEffect(() => {
         const fetchUserData = async () => {
             try {
-                if (window.Telegram.WebApp.initDataUnsafe) {
-                    const user = window.Telegram.WebApp.initDataUnsafe.user;
-                    setUsername(user?.username || "Anon");
+                const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+                if (user) {
+                    setUsername(user.username || "Anon");
                 }
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
-                setUsername("Anon");
             }
         };
 
         fetchUserData();
     }, []);
-
-    const getUserDataFromTelegramMiniApp = async () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                // Simulate user data
-                resolve({ username: "Anon" }); // Change this to simulate different scenarios
-            }, 1000);
-        });
-    };
 
     return (
         <div className='flex flex-col'>
