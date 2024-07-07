@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import Image from 'next/image';
 import { AiFillHome, AiOutlineUnorderedList } from 'react-icons/ai';
 import { GoHome } from "react-icons/go";
@@ -40,6 +41,7 @@ const Welcome = () => {
 
     return (
         <div className='flex flex-col'>
+            <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
             <div className=''>
                 <div>
                     <div className="flex justify-center items-start">
