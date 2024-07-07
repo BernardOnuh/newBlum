@@ -22,7 +22,7 @@ const Welcome = () => {
                 const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
                 console.log("User data fetched from Telegram:", user);
                 if (user) {
-                    setUsername(user.username || "Anon");
+                    setUsername(user.username);
                 } else {
                     console.warn("No user data found in Telegram WebApp");
                 }
