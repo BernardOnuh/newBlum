@@ -45,7 +45,7 @@ const Welcome = () => {
             <div className=''>
                 <div>
                     <div className="flex justify-center items-start">
-                        <Image src="/diamond.png" alt="Logo" width={100} height={100} className="mt-2 rounded-full" />
+                        <Image src="/diamond.png" alt="Logo" width={100} height={100} className="diamond mt-2 rounded-full"  />
                     </div>
                     <div className='font-semibold text-lg mt-2 text-black text-center'>{username}</div>
                 </div>
