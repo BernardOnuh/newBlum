@@ -17,16 +17,25 @@ const Welcome = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
+                console.log("Checking Telegram WebApp initialization...");
+                console.log(window.Telegram);
                 const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+                console.log("User data fetched from Telegram:", user);
                 if (user) {
                     setUsername(user.username || "Anon");
+                } else {
+                    console.warn("No user data found in Telegram WebApp");
                 }
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
             }
         };
 
-        fetchUserData();
+        if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+            fetchUserData();
+        } else {
+            console.error("Telegram WebApp is not available");
+        }
     }, []);
 
     return (
