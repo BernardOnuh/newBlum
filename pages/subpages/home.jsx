@@ -53,7 +53,7 @@ const Welcome = () => {
                     <div className='text-center my-auto text-black font-bold text-xl text-[#ff6ec7]'>{score}</div>
                 </div>
 
-                <div className='bg w-[90vw] rounded-md border-[#1F7DF1] border-2 py-3 mt-[80px]'>
+                <div className='bg w-[90vw] rounded-md border-[#1F7DF1] border-2 py-5 mt-[80px]'>
                     <div className='flex justify-center'>
                         <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounde" />
                     </div>
