@@ -75,15 +75,15 @@ const Welcome = () => {
                 <div className='flex justify-around'>
                     <div className='cursor-pointer flex flex-col items-center'>
                         <GoHome size={24} />
-                        <span>Home</span>
+                        <span className='text-[10px]'>Home</span>
                     </div>
                     <div className='cursor-pointer flex flex-col items-center'>
                         <AiOutlineUnorderedList size={24} />
-                        <span>Tasks</span>
+                        <span className='text-[10px]'>Tasks</span>
                     </div>
                     <div className='cursor-pointer flex flex-col items-center'>
                         <HiOutlineUserGroup size={24} />
-                        <span>Frens</span>
+                        <span className='text-[10px]'>Frens</span>
                     </div>
                 </div>
             </div>
