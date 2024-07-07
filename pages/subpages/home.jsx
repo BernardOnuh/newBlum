@@ -14,13 +14,13 @@ const Welcome = () => {
     };
     const [username, setUsername] = useState(null);
 
-    // Simulating fetch user data from Telegram mini app
-    useEffect(() => {
+   useEffect(() => {
         const fetchUserData = async () => {
             try {
-                // Simulating a fetch call
-                const userData = await getUserDataFromTelegramMiniApp();
-                setUsername(userData.username || "Anon");
+                if (window.Telegram.WebApp.initDataUnsafe) {
+                    const user = window.Telegram.WebApp.initDataUnsafe.user;
+                    setUsername(user?.username || "Anon");
+                }
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
                 setUsername("Anon");
@@ -81,8 +81,8 @@ const Welcome = () => {
                         <span>Tasks</span>
                     </div>
                     <div className='cursor-pointer flex flex-col items-center'>
-                        <AiOutlineUser size={24} />
-                        <span>Friends</span>
+                        <HiOutlineUserGroup size={24} />
+                        <span>Frens</span>
                     </div>
                 </div>
             </div>
