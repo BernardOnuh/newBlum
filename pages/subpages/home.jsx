@@ -53,7 +53,7 @@ const Welcome = () => {
                     <div className='text-center my-auto text-black font-bold text-xl text-[#ff6ec7]'>{score}</div>
                 </div>
 
-                <div className='bg w-[90vw] rounded-md border-[#1F7DF1] border-2 py-3 mt-5 my-4'>
+                <div className='bg w-[90vw] rounded-md border-[#1F7DF1] border-2 py-3 mt-8'>
                     <div className='flex justify-center'>
                         <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounde" />
                     </div>
@@ -65,7 +65,7 @@ const Welcome = () => {
                     </div>
                 </div>
 
-                <div className='mx-auto text-center w-[90vw] bg-[#1F7DF1] text-white font-semibold text-md py-2 rounded-md mt-5 hover:bg-black hover:text-white cursor-pointer'>
+                <div className='mx-auto text-center w-[90vw] bg-[#1F7DF1] text-white font-semibold text-md py-2 rounded-md mt-8 hover:bg-black hover:text-white cursor-pointer'>
                     Start Farming
                 </div>
             </div>
