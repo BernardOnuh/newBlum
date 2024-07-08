@@ -114,4 +114,4 @@ const Play = () => {
     );
 };
 
-export default Play;
+export
