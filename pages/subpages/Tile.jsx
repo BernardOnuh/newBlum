@@ -1,10 +1,11 @@
-// src/Tile.js
 import React from 'react';
 
-const Tile = ({ onClick, top, left }) => {
+const Tile = ({ onClick, top, left, size }) => {
     const tileStyle = {
         top: `${top}px`,
         left: `${left}%`,
+        width: `${size}px`,
+        height: `${size}px`,
         position: 'absolute',
         transform: 'translateX(-50%)',
         cursor: 'pointer',
@@ -16,7 +17,6 @@ const Tile = ({ onClick, top, left }) => {
             alt="falling tile"
             style={tileStyle}
             onClick={onClick}
-            width={50}
         />
     );
 };
