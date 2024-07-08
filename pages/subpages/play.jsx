@@ -4,7 +4,7 @@ import Tile from './Tile';
 const Play = () => {
     const [tiles, setTiles] = useState([]);
     const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(30); // 60 seconds timer
+    const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
     const [gameOver, setGameOver] = useState(false);
     const containerRef = useRef(null);
 
@@ -14,7 +14,7 @@ const Play = () => {
         const gameInterval = setInterval(() => {
             addTiles();
             moveTiles();
-        }, 50);
+        }, 100); // Increase interval to slow down tile generation
 
         const timerInterval = setInterval(() => {
             setTimeLeft(prevTime => {
@@ -35,12 +35,12 @@ const Play = () => {
     }, [gameOver]);
 
     const addTiles = () => {
-        const numTiles = Math.floor(Math.random() * 1) + 1; // Random number between 3 and 5
+        const numTiles = Math.floor(Math.random() * 1) + 1; // Random number between 1 and 2 to reduce tile count
         const newTiles = Array.from({ length: numTiles }, () => ({
             id: Math.random(),
             top: 0,
-            left: Math.random() * 300, // Random left position between 0 and 100%
-            clicked: false
+            left: Math.random() * 100, // Random left position between 0 and 100%
+            size: Math.random() * 30 + 20, // Random size between 20 and 50
         }));
         setTiles(prevTiles => [...newTiles, ...prevTiles]);
     };
@@ -58,13 +58,8 @@ const Play = () => {
     };
 
     const handleTileClick = (id) => {
-        setTiles(prevTiles => prevTiles.map(tile => {
-            if (tile.id === id && !tile.clicked) {
-                setScore(score + 1);
-                return { ...tile, clicked: true };
-            }
-            return tile;
-        }));
+        setTiles(prevTiles => prevTiles.filter(tile => tile.id !== id));
+        setScore(prevScore => prevScore + 1);
     };
 
     const endGame = () => {
@@ -82,7 +77,7 @@ const Play = () => {
         <div
             id="game-container"
             ref={containerRef}
-            className="relative w-[100vw] h-screen overflow-hidden "
+            className="relative w-[100vw] h-screen overflow-hidden"
         >
             <div id="score" className="absolute text-black top-1 left-2 text-xl">
                 Score: {score}
@@ -97,6 +92,7 @@ const Play = () => {
                         onClick={() => handleTileClick(tile.id)}
                         top={tile.top}
                         left={tile.left}
+                        size={tile.size}
                     />
                 ))}
             </div>
