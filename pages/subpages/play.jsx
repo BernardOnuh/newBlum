@@ -62,8 +62,31 @@ const Play = () => {
         setScore(prevScore => prevScore + 1);
     };
 
-    const endGame = () => {
+    const endGame = async () => {
         setGameOver(true);
+        try {
+            const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+            if (user) {
+                const response = await fetch('https://ton-diamonddb.onrender.com/api/ton-diamond/update-score', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: user.username,
+                        score: score,
+                    }),
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    console.error('Failed to update user score:', data.message);
+                }
+            } else {
+                console.warn("No user data found in Telegram WebApp");
+            }
+        } catch (error) {
+            console.error("Failed to update user score:", error);
+        }
     };
 
     const resetGame = () => {
@@ -114,4 +137,4 @@ const Play = () => {
     );
 };
 
-export
+export default Play;
