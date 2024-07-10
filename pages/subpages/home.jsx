@@ -8,7 +8,7 @@ import { GoHome } from "react-icons/go";
 import { HiOutlineUserGroup } from "react-icons/hi";
 
 const Welcome = () => {
-    const [score, setScore] = useState(33333);
+    const [score, setScore] = useState(0);
     const [username, setUsername] = useState("Anon");
     const router = useRouter();
 
@@ -29,6 +29,13 @@ const Welcome = () => {
                 console.log("User data fetched from Telegram:", user);
                 if (user) {
                     setUsername(user.username || "Anon");
+                    const response = await fetch(`https://ton-diamonddb.onrender.com/api/ton-diamond/user/${user.username}`);
+                    const data = await response.json();
+                    if (response.ok) {
+                        setScore(data.score);
+                    } else {
+                        console.error('Failed to fetch user data:', data.message);
+                    }
                 } else {
                     console.warn("No user data found in Telegram WebApp");
                 }
@@ -50,7 +57,7 @@ const Welcome = () => {
             <div className=''>
                 <div>
                     <div className="flex justify-center items-start">
-                        <Image src="/diamond.png" alt="Logo" width={100} height={100} className="diamond mt-2 rounded-full"  />
+                        <Image src="/diamond.png" alt="Logo" width={100} height={100} className="diamond mt-2 rounded-full" />
                     </div>
                     <div className='font-semibold text-lg mt-2 text-black text-center'>{username}</div>
                 </div>
@@ -64,7 +71,7 @@ const Welcome = () => {
                         <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounde" />
                     </div>
                     <div
-                        className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-[#ff6ec7] cursor-pointer'
+                        className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-black cursor-pointer'
                         onClick={handlePlayClick}
                     >
                         Play
