@@ -71,7 +71,7 @@ const Welcome = () => {
                         <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounde" />
                     </div>
                     <div
-                        className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-black cursor-pointer'
+                        className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-[#ff6ec7] cursor-pointer'
                         onClick={handlePlayClick}
                     >
                         Play
