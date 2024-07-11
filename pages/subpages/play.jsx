@@ -61,12 +61,12 @@ const Play = () => {
         setTiles(prevTiles => prevTiles.filter(tile => tile.id !== id));
         setScore(prevScore => prevScore + 1);
     };
-
     const endGame = async () => {
         setGameOver(true);
         try {
             const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
             if (user) {
+                console.log("User data:", user);
                 const response = await fetch('https://ton-diamonddb.onrender.com/api/ton-diamond/update-score', {
                     method: 'PUT',
                     headers: {
@@ -77,9 +77,11 @@ const Play = () => {
                         score: score,
                     }),
                 });
-                const data = await response.json();
                 if (!response.ok) {
+                    const data = await response.json();
                     console.error('Failed to update user score:', data.message);
+                } else {
+                    console.log("Score updated successfully");
                 }
             } else {
                 console.warn("No user data found in Telegram WebApp");
@@ -88,6 +90,7 @@ const Play = () => {
             console.error("Failed to update user score:", error);
         }
     };
+    
 
     const resetGame = () => {
         setTiles([]);
