@@ -65,6 +65,7 @@ const Play = () => {
         setGameOver(true);
         try {
             const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+            const name = user.username
             if (user) {
                 console.log("User data:", user);
                 const response = await fetch('https://ton-diamonddb.onrender.com/api/ton-diamond/update-score', {
@@ -106,7 +107,7 @@ const Play = () => {
             className="relative w-[100vw] h-screen overflow-hidden"
         >
             <div id="score" className="absolute text-black top-1 left-2 text-xl">
-                Score: {score}
+                Score: {score}{name}
             </div>
             <div id="timer" className="absolute text-black top-1 right-2 text-xl">
                 Time Left: {timeLeft}s
