@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Tile from './Tile';
+import Script from 'next/script';
+import Link from "next/link"
 
 const Play = () => {
     const [tiles, setTiles] = useState([]);
@@ -65,7 +67,7 @@ const Play = () => {
         setGameOver(true);
         try {
             const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
-            const name = user.username
+            const name = user.username || "Anon"
             if (user) {
                 console.log("User data:", user);
                 const response = await fetch('https://ton-diamonddb.onrender.com/api/ton-diamond/update-score', {
@@ -106,8 +108,9 @@ const Play = () => {
             ref={containerRef}
             className="relative w-[100vw] h-screen overflow-hidden"
         >
+            <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
             <div id="score" className="absolute text-black top-1 left-2 text-xl">
-                Score: {score}{name}
+                Score: {score}
             </div>
             <div id="timer" className="absolute text-black top-1 right-2 text-xl">
                 Time Left: {timeLeft}s
@@ -134,6 +137,16 @@ const Play = () => {
                         >
                             Play Again
                         </button>
+                        <div>
+                        <Link href="/">
+                        <button
+                            onClick={resetGame}
+                            className="bg-[#1F7DF1] font-semibold text-white px-4 py-2 my-2 rounded"
+                        >
+                            Home
+                        </button>
+                        </Link>
+                        </div>
                     </div>
                 </div>
             )}
