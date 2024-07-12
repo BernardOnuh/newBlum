@@ -16,9 +16,7 @@ const Welcome = () => {
         router.push('/subpages/play'); // Navigate to the play page
     };
 
-    const handleTask = () => {
-        router.push('/subpages/task'); // Navigate to the play page
-    };
+    
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -71,7 +69,7 @@ const Welcome = () => {
                         <Image src="/diamond.png" alt="Logo" width={30} height={30} className="rounde" />
                     </div>
                     <div
-                        className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-[#ff6ec7] cursor-pointer'
+                        className='mx-auto text-center w-[30vw] bg-[#1F7DF1] text-white my-2 font-semibold text-md py-2 rounded-full hover:bg-black cursor-pointer'
                         onClick={handlePlayClick}
                     >
                         Play
@@ -97,7 +95,7 @@ const Welcome = () => {
                         <span className='text-[10px]'>Tasks</span>
                     </div>
                     </Link>
-                    <Link href="/subpages/task">
+                    <Link href="/subpages/Frens">
                     <div className='cursor-pointer flex flex-col items-center'>
                         <HiOutlineUserGroup size={24} />
                         <span className='text-[10px]'>Frens</span>
