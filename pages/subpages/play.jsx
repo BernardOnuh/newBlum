@@ -1,16 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Tile from './Tile';
 import Script from 'next/script';
-import Link from "next/link"
+import Link from 'next/link';
 
 const Play = () => {
     const [tiles, setTiles] = useState([]);
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
     const [gameOver, setGameOver] = useState(false);
+    const [username, setUsername] = useState('Anon'); // Add state for username
     const containerRef = useRef(null);
+    const scoreRef = useRef(score);
 
     useEffect(() => {
+        // Fetch the Telegram user data and set the username
+        const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+        if (user) {
+            setUsername(user.username || 'bernardblockchain');
+        }
+
         if (gameOver) return;
 
         const gameInterval = setInterval(() => {
@@ -23,7 +31,7 @@ const Play = () => {
                 if (prevTime <= 1) {
                     clearInterval(gameInterval);
                     clearInterval(timerInterval);
-                    endGame();
+                    setGameOver(true);
                     return 0;
                 }
                 return prevTime - 1;
@@ -36,8 +44,18 @@ const Play = () => {
         };
     }, [gameOver]);
 
+    useEffect(() => {
+        scoreRef.current = score; // Keep the score ref updated
+    }, [score]);
+
+    useEffect(() => {
+        if (gameOver) {
+            endGame(scoreRef.current); // Use the most recent score
+        }
+    }, [gameOver]);
+
     const addTiles = () => {
-        const numTiles = Math.floor(Math.random() * 1) + 1; // Random number between 1 and 2 to reduce tile count
+        const numTiles = Math.floor(Math.random() * 1) + 1; // Random number between 1 and 1 to reduce tile count
         const newTiles = Array.from({ length: numTiles }, () => ({
             id: Math.random(),
             top: 0,
@@ -63,37 +81,31 @@ const Play = () => {
         setTiles(prevTiles => prevTiles.filter(tile => tile.id !== id));
         setScore(prevScore => prevScore + 1);
     };
-    const endGame = async () => {
-        setGameOver(true);
+
+    const endGame = async (finalScore) => {
         try {
-            const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
-            const name = user.username || "Anon"
-            if (user) {
-                console.log("User data:", user);
-                const response = await fetch('https://ton-diamonddb.onrender.com/api/ton-diamond/update-score', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: user.username,
-                        score: score,
-                    }),
-                });
-                if (!response.ok) {
-                    const data = await response.json();
-                    console.error('Failed to update user score:', data.message);
-                } else {
-                    console.log("Score updated successfully");
-                }
+            const response = await fetch('https://ton-diamonddb.onrender.com/api/ton-diamond/update-score', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username, // Use dynamic username
+                    score: finalScore,
+                }),
+            });
+            console.log('username',username)
+            console.log('score:', finalScore);
+            const data = await response.json();
+            if (!response.ok) {
+                console.error('Failed to update user score:', data.message);
             } else {
-                console.warn("No user data found in Telegram WebApp");
+                console.log("Score updated successfully:", data);
             }
         } catch (error) {
             console.error("Failed to update user score:", error);
         }
     };
-    
 
     const resetGame = () => {
         setTiles([]);
@@ -109,6 +121,7 @@ const Play = () => {
             className="relative w-[100vw] h-screen overflow-hidden"
         >
             <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
+            <div>{username}</div> {/* Use the username state */}
             <div id="score" className="absolute text-black top-1 left-2 text-xl">
                 Score: {score}
             </div>
@@ -138,14 +151,14 @@ const Play = () => {
                             Play Again
                         </button>
                         <div>
-                        <Link href="/">
-                        <button
-                            onClick={resetGame}
-                            className="bg-[#1F7DF1] font-semibold text-white px-4 py-2 my-2 rounded"
-                        >
-                            Home
-                        </button>
-                        </Link>
+                            <Link href="/">
+                                <button
+                                    onClick={resetGame}
+                                    className="bg-[#1F7DF1] font-semibold text-white px-4 py-2 my-2 rounded"
+                                >
+                                    Home
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
