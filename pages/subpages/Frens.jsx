@@ -8,7 +8,7 @@ import { HiOutlineUserGroup } from "react-icons/hi";
 
 const invite = () => {
   return (
-    <div className=" p-5 m-auto h-screen">
+    <div className=" p-5 m-auto mb-10">
       <div className="flex justify-center items-center flex-col h-auto">
         <span className="pt-5 pb-1 text-3xl">👨‍👩‍👧‍👦</span>
         <h1 className="py-5 text-gray-800 font-bold text-lg">Invite Friends</h1>
